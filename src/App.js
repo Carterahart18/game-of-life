@@ -13,6 +13,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <p>
+          This app is meant to play Conway's Game of Life!
+        </p>
       </div>
     );
   }
