@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://carterahart18.github.io/gameoflife/",
   "dependencies": {
+    "flow-bin": "^0.89.0",
     "gh-pages": "^1.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -16,7 +17,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow": "flow"
   },
   "devDependencies": {
     "enzyme": "^3.5.0",
