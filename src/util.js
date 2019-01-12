@@ -1,10 +1,12 @@
 // Canvas utility
 
-export const generateRandomGrid = (width, height) => {
+import { WIDTH, HEIGHT, SCALE } from './index';
+
+export const generateRandomGrid = () => {
   let grid = [[]];
 
-  for (let i = 0; i < width; i++) {
-    for (let j = 0; j < height; j++) {
+  for (let i = 0; i < WIDTH; i++) {
+    for (let j = 0; j < HEIGHT; j++) {
       if (!grid[i]) {
         grid[i] = [];
       }
@@ -38,18 +40,42 @@ export const drawGrid = (grid, canvas) => {
   grid.forEach(function(col, i) {
     col.forEach(function(bool, j) {
       if (grid[i][j]) {
-        drawPixel(canvas, i, j, 2);
+        drawPixel(canvas, i, j, SCALE);
       } else {
-        clearPixel(canvas, i, j, 2);
+        clearPixel(canvas, i, j, SCALE);
       }
     });
   });
 };
 
-export const drawPixel = (canvas, x, y, scale) => {
-  canvas.getContext('2d').fillRect(x * scale, y * scale, scale, scale);
+export const drawPixel = (canvas, x, y) => {
+  canvas.getContext('2d').fillRect(x * SCALE, y * SCALE, SCALE, SCALE);
 };
 
-export const clearPixel = (canvas, x, y, scale) => {
-  canvas.getContext('2d').clearRect(x * scale, y * scale, scale, scale);
+export const clearPixel = (canvas, x, y) => {
+  canvas.getContext('2d').clearRect(x * SCALE, y * SCALE, SCALE, SCALE);
 };
+
+export const isPixelSet = (canvas, x, y) => {
+  var image = canvas.getContext('2d').getImageData(x, y, 1, 1);
+  if (image) {
+    return image.data && image.data[3] !== 0 ? true : false;
+  }
+};
+
+// export const togglePixel = (canvas, x, y) => {
+//   const context = canvas.getContext('2d');
+//   var image = context.getImageData(x, y, 1, 1);
+//   if (image) {
+//     const xPos = Math.floor(x / SCALE);
+//     const yPos = Math.floor(y / SCALE);
+
+//     if (image.data && image.data[3] != 0) {
+//       context.clearRect(xPos * SCALE, yPos * SCALE, SCALE, SCALE);
+//     } else {
+//       context.fillRect(xPos * SCALE, yPos * SCALE, SCALE, SCALE);
+//     }
+//     console.log(image);
+//   }
+// };
+// };

@@ -1,15 +1,35 @@
 import registerServiceWorker from './registerServiceWorker';
 import { Exception } from 'handlebars';
-import { countNeighbors, drawGrid, generateRandomGrid } from './util';
+import {
+  countNeighbors,
+  drawGrid,
+  generateRandomGrid,
+  isPixelSet,
+  clearPixel,
+  drawPixel
+} from './util';
+
+export const WIDTH = 100;
+export const HEIGHT = 100;
+export const SCALE = 5;
 
 const randomButton = document.getElementById('random');
 const toggleButton = document.getElementById('toggle');
 const canvas = document.getElementById('canvas');
 let grid = [[]];
+for (let i = 0; i < WIDTH; i++) {
+  for (let j = 0; j < HEIGHT; j++) {
+    if (!grid[i]) {
+      grid[i] = [];
+    }
+    grid[i][j] = false;
+  }
+}
+
 let interval;
 
 const start = () => {
-  const canvas = document.getElementById('canvas');
+  toggleButton.setAttribute('value', 'Stop');
   interval = setInterval(function() {
     let newGrid = [[]];
     grid.forEach(function(col, i) {
@@ -32,8 +52,6 @@ const start = () => {
       });
     });
 
-    console.log('Draw');
-
     grid = newGrid;
     drawGrid(newGrid, canvas);
   }, 50);
@@ -47,12 +65,10 @@ const stop = () => {
 toggleButton.addEventListener('click', function() {
   switch (toggleButton.getAttribute('value')) {
     case 'Start':
-      toggleButton.setAttribute('value', 'Stop');
       start();
       break;
     case 'Stop':
-      toggleButton.setAttribute('value', 'Start');
-      clearInterval(interval);
+      stop();
       break;
     default:
       throw new Exception('Unexpected button state');
@@ -60,9 +76,27 @@ toggleButton.addEventListener('click', function() {
 });
 
 randomButton.addEventListener('click', function() {
-  const canvas = document.getElementById('canvas');
-  grid = generateRandomGrid(250, 250);
+  grid = generateRandomGrid();
   drawGrid(grid, canvas);
+});
+
+canvas.addEventListener('click', function(event) {
+  let x = event.pageX - canvas.offsetLeft;
+  let y = event.pageY - canvas.offsetTop;
+
+  const xPos = Math.floor(x / SCALE);
+  const yPos = Math.floor(y / SCALE);
+  if (!grid[xPos]) {
+    grid[xPos] = [];
+  }
+
+  if (isPixelSet(canvas, xPos, yPos)) {
+    clearPixel(canvas, xPos, yPos);
+    grid[xPos][yPos] = false;
+  } else {
+    drawPixel(canvas, xPos, yPos);
+    grid[xPos][yPos] = true;
+  }
 });
 
 registerServiceWorker();
