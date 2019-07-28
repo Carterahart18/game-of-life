@@ -4,6 +4,7 @@ import Header from '../components/header';
 import Canvas from '../components/canvas';
 import Row from '../components/row';
 import Button from '../components/button';
+import ControlPanel from '../containers/controlPanel';
 
 import {
   countNeighbors,
@@ -118,14 +119,13 @@ export default class App extends React.Component {
     return (
       <div>
         <Header text={"Convey's Game of Life"} />
-        <Canvas width={500} height={500} scale={1} />
         <Row>
-          <Button
-            id={'toggle'}
-            onClick={this.onToggle}
-            text={running ? 'Stop' : 'Start'}
+          <ControlPanel
+            running={running}
+            onToggle={this.onToggle}
+            onRandomize={this.randomize}
           />
-          <Button id={'random'} onClick={this.randomize} text={'Randomize'} />
+          <Canvas width={500} height={500} scale={1} />
         </Row>
       </div>
     );

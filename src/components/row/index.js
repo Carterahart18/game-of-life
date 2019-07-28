@@ -7,7 +7,7 @@ const propTypes = {
   width: PropTypes.number
 };
 
-export default function Header(props) {
+export default function Row(props) {
   return (
     <div className={'Row'}>
       {props.children}
@@ -15,4 +15,4 @@ export default function Header(props) {
   );
 }
 
-Header.propTypes = propTypes;
+Row.propTypes = propTypes;

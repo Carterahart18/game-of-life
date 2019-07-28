@@ -1,0 +1,10 @@
+.ControlPanel-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 25px;
+  background-color: #eee;
+  height: 450px;
+  width: 200px;
+  border-radius: 3px;
+}
