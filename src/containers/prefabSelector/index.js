@@ -35,13 +35,13 @@ export default function PrefabSelector({ activePrefab, setActivePrefab }) {
           transparent={activePrefab !== PREFABS.SHIP_1}
           inline
           onClick={() => setActivePrefab(PREFABS.SHIP_1)}
-          text={'Ship 1'}
+          text={'TODO'}
         />
         <Button
           transparent={activePrefab !== PREFABS.SHIP_2}
           inline
           onClick={() => setActivePrefab(PREFABS.SHIP_2)}
-          text={'Ship 2'}
+          text={'TODO'}
         />
       </Row>
     </Column>
