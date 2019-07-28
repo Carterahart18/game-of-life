@@ -5,6 +5,7 @@ import {
   getNextGeneration,
   setPixel
 } from '../util/generationUtil';
+import { PREFABS } from '../util/prefabUtil';
 
 import Board from '../containers/Board';
 import ControlPanel from '../containers/controlPanel';
@@ -17,7 +18,8 @@ export default function App() {
   );
   const [gameInterval, setGameInterval] = useState(null);
   const [running, setRunning] = useState(false);
-  const drawPrefab = useState(false);
+  const [activePrefab, setActivePrefab] = useState(PREFABS.GLIDER);
+  const [drawingPrefab, setDrawingPrefab] = useState(false);
 
   const stepBoard = () => {
     setCurrentGeneration(currentGeneration =>
@@ -38,7 +40,6 @@ export default function App() {
   };
 
   const stopGame = () => {
-    debugger;
     clearInterval(gameInterval);
     setRunning(false);
   };
@@ -61,14 +62,20 @@ export default function App() {
       <Header text={"Convey's Game of Life"} />
       <Row>
         <ControlPanel
-          running={running}
+          activePrefab={activePrefab}
+          drawingPrefab={drawingPrefab}
           onClear={clearBoard}
-          onStep={stepBoard}
           onRandomize={randomize}
+          onStep={stepBoard}
           onToggle={toggleGame}
+          running={running}
+          setActivePrefab={setActivePrefab}
+          setDrawingPrefab={setDrawingPrefab}
         />
         <Board
+          activePrefab={activePrefab}
           currentGeneration={currentGeneration}
+          drawingPrefab={drawingPrefab}
           modifyBoard={modifyBoard}
         />
       </Row>

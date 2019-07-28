@@ -4,36 +4,44 @@ import PropTypes from 'prop-types';
 import Canvas from '../../components/canvas';
 import Column from '../../components/column';
 
-import { drawGeneration, getCoordinates } from '../../util/canvasUtil';
+import { drawGeneration, drawPrefab, getCoordinates } from '../../util/canvasUtil';
 
 const propTypes = {
+  activePrefab: PropTypes.string.isRequired,
   currentGeneration: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
+  drawingPrefab: PropTypes.bool.isRequired,
   modifyBoard: PropTypes.func.isRequired
 };
 
 export default function Board(props) {
+  const { activePrefab, currentGeneration, drawingPrefab, modifyBoard } = props;
   const [drawing, setDrawing] = useState(false);
 
   useEffect(() => {
-    drawGeneration(props.currentGeneration);
+    drawGeneration(currentGeneration);
   }, [props.currentGeneration]);
 
   const onMouseDown = event => {
-    setDrawing(true);
-    const [i, j] = getCoordinates(event);
-    props.modifyBoard(i, j, true);
-  };
-
-  const onMouseMove = event => {
-    if (drawing) {
+    if (!drawingPrefab) {
+      setDrawing(true);
       const [i, j] = getCoordinates(event);
-      props.modifyBoard(i, j, true);
+      modifyBoard(i, j, true);
     }
   };
 
+  const onMouseMove = event => {
+    if (drawing && !drawingPrefab) {
+      const [i, j] = getCoordinates(event);
+      modifyBoard(i, j, true);
+    }
+  };
 
   const onMouseUp = event => {
     setDrawing(false);
+    if (drawingPrefab) {
+      const [i, j] = getCoordinates(event);
+      drawPrefab(i, j, activePrefab);
+    }
   };
 
   return (

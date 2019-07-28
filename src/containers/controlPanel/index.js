@@ -2,20 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../components/button';
+import Column from '../../components/column';
+import PrefabSelector from '../../containers/prefabSelector';
 
 import './styles.css';
 
 const propTypes = {
-  running: PropTypes.bool.isRequired,
+  activePrefab: PropTypes.string.isRequired,
+  drawingPrefab: PropTypes.bool.isRequired,
   onClear: PropTypes.func.isRequired,
-  onStep: PropTypes.func.isRequired,
   onRandomize: PropTypes.func.isRequired,
-  onToggle: PropTypes.func.isRequired
+  onStep: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  setActivePrefab: PropTypes.func.isRequired,
+  setDrawingPrefab: PropTypes.func.isRequired,
+  running: PropTypes.bool.isRequired
 };
 
 export default function ControlPanel(props) {
   return (
-    <div className={'ControlPanel-container'}>
+    <Column className={'ControlPanel-container'}>
       <Button
         onClick={props.onToggle}
         text={props.running ? 'Stop' : 'Start'}
@@ -27,7 +33,16 @@ export default function ControlPanel(props) {
         text={'Randomize'}
       />
       <Button onClick={props.onClear} text={'Clear'} />
-    </div>
+      <Button
+        transparent={!props.drawingPrefab}
+        onClick={() => props.setDrawingPrefab(drawing => !drawing)}
+        text={'Draw Prefab'}
+      />
+      <PrefabSelector
+        activePrefab={props.activePrefab}
+        setActivePrefab={props.setActivePrefab}
+      />
+    </Column>
   );
 }
 

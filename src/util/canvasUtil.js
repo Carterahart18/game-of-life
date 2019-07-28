@@ -40,3 +40,7 @@ export const getCoordinates = event => {
   const yPos = Math.floor(y / SCALE);
   return [xPos, yPos];
 };
+
+export const drawPrefab = (i, j, event) => {
+
+}

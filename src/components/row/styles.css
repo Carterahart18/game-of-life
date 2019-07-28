@@ -4,3 +4,14 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+
+.Row > .button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+
+.Row > .button:last-child {
+  margin-right: 0;
+}

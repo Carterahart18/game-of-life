@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { classNamePrefixer } from '../../util/classNameUtil';
+
 import './styles.css';
+
+const getClassName = classNamePrefixer('button');
 
 const propTypes = {
   disabled: PropTypes.bool,
   id: PropTypes.string,
+  inline: PropTypes.bool,
+  transparent: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
@@ -15,7 +21,10 @@ export default function Button(props) {
     <button
       id={props.id}
       disabled={props.disabled}
-      className={'button'}
+      className={getClassName({
+        inline: props.inline,
+        transparent: props.transparent
+      })}
       onClick={props.onClick}
     >
       {props.text}
