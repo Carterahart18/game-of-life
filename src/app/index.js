@@ -12,39 +12,21 @@ import Header from '../components/header';
 import Row from '../components/row';
 
 export default function App() {
-  // constructor(props) {
-  //   super(props);
-  //   state = {
-  //     currentGeneration: getEmptyGeneration(),
-  //     interval: null,
-  //     running: false
-  //   };
-  // }
-
   const [currentGeneration, setCurrentGeneration] = useState(
     getEmptyGeneration()
   );
   const [gameInterval, setGameInterval] = useState(null);
   const [running, setRunning] = useState(false);
+  const drawPrefab = useState(false);
 
   const stepBoard = () => {
-    // debugger;
-    // const nextGen = getNextGeneration(currentGeneration);
     setCurrentGeneration(currentGeneration =>
       getNextGeneration(currentGeneration)
     );
-    setRunning(false);
-
-    // setState(state => ({
-    //   currentGeneration: getNextGeneration(state.currentGeneration)
-    // }));
   };
 
-  const setPixel = (i, j, value) => {
+  const modifyBoard = (i, j, value) => {
     setCurrentGeneration(setPixel(currentGeneration, i, j, value));
-    // setState({
-    //   currentGeneration: setPixel(state.currentGeneration, i, j, value)
-    // });
   };
 
   const startGame = () => {
@@ -53,16 +35,12 @@ export default function App() {
     }, 50);
     setGameInterval(interval);
     setRunning(true);
-
-    // setState({ interval: interval, running: true });
   };
 
   const stopGame = () => {
     debugger;
     clearInterval(gameInterval);
     setRunning(false);
-
-    // setState({ running: false });
   };
 
   const toggleGame = () => {
@@ -71,13 +49,11 @@ export default function App() {
 
   const randomize = () => {
     setCurrentGeneration(getRandomGeneration());
-    // setState({ currentGeneration: getRandomGeneration() });
   };
 
   const clearBoard = () => {
     stopGame();
     setCurrentGeneration(getEmptyGeneration());
-    // setState({ currentGeneration: getEmptyGeneration() });
   };
 
   return (
@@ -91,7 +67,10 @@ export default function App() {
           onRandomize={randomize}
           onToggle={toggleGame}
         />
-        <Board currentGeneration={currentGeneration} setPixel={setPixel} />
+        <Board
+          currentGeneration={currentGeneration}
+          modifyBoard={modifyBoard}
+        />
       </Row>
     </div>
   );
