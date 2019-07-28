@@ -7,20 +7,20 @@ import './styles.css';
 
 const propTypes = {
   running: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
-  onRandomize: PropTypes.func.isRequired
+  onStep: PropTypes.func.isRequired,
+  onRandomize: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired
 };
 
 export default function ControlPanel(props) {
   return (
     <div className={'ControlPanel-container'}>
       <Button
-        id={'toggle'}
         onClick={props.onToggle}
         text={props.running ? 'Stop' : 'Start'}
       />
+      <Button disabled={props.running} onClick={props.onStep} text={'Step'} />
       <Button
-        id={'random'}
         disabled={props.running}
         onClick={props.onRandomize}
         text={'Randomize'}

@@ -1,40 +1,6 @@
 // Canvas utility
 
-import { WIDTH, HEIGHT, SCALE } from './constants';
-
-export const generateRandomGrid = () => {
-  let grid = [[]];
-
-  for (let i = 0; i < WIDTH; i++) {
-    for (let j = 0; j < HEIGHT; j++) {
-      if (!grid[i]) {
-        grid[i] = [];
-      }
-      grid[i][j] = Math.random() * 100 > 50;
-    }
-  }
-
-  return grid;
-};
-
-export const countNeighbors = (grid, i, j) => {
-  let num = 0;
-
-  if (grid[i - 1]) {
-    if (grid[i - 1][j - 1]) num++;
-    if (grid[i - 1][j]) num++;
-    if (grid[i - 1][j + 1]) num++;
-  }
-  if (grid[i][j - 1]) num++;
-  if (grid[i][j + 1]) num++;
-  if (grid[i + 1]) {
-    if (grid[i + 1][j - 1]) num++;
-    if (grid[i + 1][j]) num++;
-    if (grid[i + 1][j + 1]) num++;
-  }
-
-  return num;
-};
+import { SCALE } from './constants';
 
 export const drawGrid = (grid) => {
   const canvas = document.getElementById('canvas');

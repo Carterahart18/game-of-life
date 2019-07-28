@@ -8,12 +8,10 @@ import ControlPanel from '../containers/controlPanel';
 
 import {
   countNeighbors,
-  drawGrid,
   generateRandomGrid,
-  isPixelSet,
-  clearPixel,
-  drawPixel
-} from '../util/canvasUtil';
+  getNextGeneration
+} from '../util/boardUtil';
+import { drawGrid } from '../util/canvasUtil';
 
 import { WIDTH, HEIGHT } from '../util/constants';
 
@@ -37,52 +35,29 @@ export default class App extends React.Component {
     };
   }
 
+  stepBoard = () => {
+    let newGrid = getNextGeneration(this.state.grid);
+    this.setState({ grid: newGrid });
+    drawGrid(newGrid);
+  };
+
   start = () => {
-    // toggleButton.setAttribute('value', 'Stop');
     const interval = setInterval(() => {
-      let newGrid = [[]];
-      const { grid } = this.state;
-      grid.forEach(function(col, i) {
-        col.forEach(function(bool, j) {
-          const neighbors = countNeighbors(grid, i, j);
-
-          if (!newGrid[i]) {
-            newGrid[i] = [];
-          }
-
-          if (neighbors <= 1) {
-            newGrid[i][j] = false;
-          } else if (neighbors === 2) {
-            newGrid[i][j] = grid[i][j];
-          } else if (neighbors === 3) {
-            newGrid[i][j] = true;
-          } else if (neighbors >= 4) {
-            newGrid[i][j] = false;
-          }
-        });
-      });
-
-      this.setState({ grid: newGrid });
-      drawGrid(newGrid);
+      this.stepBoard();
     }, 50);
 
     this.setState({ interval: interval, running: true });
   };
 
   stop = () => {
-    // toggleButton.setAttribute('value', 'Start');
     clearInterval(this.state.interval);
     this.setState({ running: false });
   };
 
-  onToggle = () => {
+  toggleRunningState = () => {
     const callback = this.state.running ? this.stop : this.start;
     callback();
   };
-
-  // toggleButton.addEventListener('click', function() {
-
-  // });
 
   randomize = () => {
     let grid = generateRandomGrid();
@@ -122,7 +97,8 @@ export default class App extends React.Component {
         <Row>
           <ControlPanel
             running={running}
-            onToggle={this.onToggle}
+            onToggle={this.toggleRunningState}
+            onStep={this.stepBoard}
             onRandomize={this.randomize}
           />
           <Canvas width={500} height={500} scale={1} />
