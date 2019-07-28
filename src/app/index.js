@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   getEmptyGeneration,
   getRandomGeneration,
@@ -11,72 +11,88 @@ import ControlPanel from '../containers/controlPanel';
 import Header from '../components/header';
 import Row from '../components/row';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentGeneration: getEmptyGeneration(),
-      interval: null,
-      running: false
-    };
-  }
+export default function App() {
+  // constructor(props) {
+  //   super(props);
+  //   state = {
+  //     currentGeneration: getEmptyGeneration(),
+  //     interval: null,
+  //     running: false
+  //   };
+  // }
 
-  stepBoard = () => {
-    this.setState(state => ({
-      currentGeneration: getNextGeneration(state.currentGeneration)
-    }));
-  };
+  const [currentGeneration, setCurrentGeneration] = useState(
+    getEmptyGeneration()
+  );
+  const [gameInterval, setGameInterval] = useState(null);
+  const [running, setRunning] = useState(false);
 
-  setPixel = (i, j, value) => {
-    this.setState({
-      currentGeneration: setPixel(this.state.currentGeneration, i, j, value)
-    });
-  };
-
-  startGame = () => {
-    const interval = setInterval(() => {
-      this.stepBoard();
-    }, 50);
-
-    this.setState({ interval: interval, running: true });
-  };
-
-  stopGame = () => {
-    clearInterval(this.state.interval);
-    this.setState({ running: false });
-  };
-
-  toggleGame = () => {
-    this.state.running ? this.stopGame() : this.startGame();
-  };
-
-  randomize = () => {
-    this.setState({ currentGeneration: getRandomGeneration() });
-  };
-
-  clearBoard = () => {
-    this.setState({ currentGeneration: getEmptyGeneration(), running: false });
-  };
-
-  render() {
-    const { currentGeneration, running } = this.state;
-    return (
-      <div>
-        <Header text={"Convey's Game of Life"} />
-        <Row>
-          <ControlPanel
-            running={running}
-            onClear={this.clearBoard}
-            onStep={this.stepBoard}
-            onRandomize={this.randomize}
-            onToggle={this.toggleGame}
-          />
-          <Board
-            currentGeneration={currentGeneration}
-            setPixel={this.setPixel}
-          />
-        </Row>
-      </div>
+  const stepBoard = () => {
+    // debugger;
+    // const nextGen = getNextGeneration(currentGeneration);
+    setCurrentGeneration(currentGeneration =>
+      getNextGeneration(currentGeneration)
     );
-  }
+    setRunning(false);
+
+    // setState(state => ({
+    //   currentGeneration: getNextGeneration(state.currentGeneration)
+    // }));
+  };
+
+  const setPixel = (i, j, value) => {
+    setCurrentGeneration(setPixel(currentGeneration, i, j, value));
+    // setState({
+    //   currentGeneration: setPixel(state.currentGeneration, i, j, value)
+    // });
+  };
+
+  const startGame = () => {
+    const interval = setInterval(() => {
+      stepBoard();
+    }, 50);
+    setGameInterval(interval);
+    setRunning(true);
+
+    // setState({ interval: interval, running: true });
+  };
+
+  const stopGame = () => {
+    debugger;
+    clearInterval(gameInterval);
+    setRunning(false);
+
+    // setState({ running: false });
+  };
+
+  const toggleGame = () => {
+    running ? stopGame() : startGame();
+  };
+
+  const randomize = () => {
+    setCurrentGeneration(getRandomGeneration());
+    // setState({ currentGeneration: getRandomGeneration() });
+  };
+
+  const clearBoard = () => {
+    stopGame();
+    setCurrentGeneration(getEmptyGeneration());
+    // setState({ currentGeneration: getEmptyGeneration() });
+  };
+
+  return (
+    <div>
+      <Header text={"Convey's Game of Life"} />
+      <Row>
+        <ControlPanel
+          running={running}
+          onClear={clearBoard}
+          onStep={stepBoard}
+          onRandomize={randomize}
+          onToggle={toggleGame}
+        />
+        <Board currentGeneration={currentGeneration} setPixel={setPixel} />
+      </Row>
+    </div>
+  );
 }

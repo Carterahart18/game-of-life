@@ -13,6 +13,7 @@
     "flow": "flow"
   },
   "dependencies": {
+    "eslint-plugin-react-hooks": "^1.6.1",
     "flow-bin": "^0.89.0",
     "gh-pages": "^1.2.0",
     "react": "^16.4.2",
