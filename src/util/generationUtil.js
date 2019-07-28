@@ -1,5 +1,7 @@
 import { WIDTH, HEIGHT } from './constants';
 
+import { getPrefab } from './prefabUtil';
+
 export const getEmptyGeneration = () => {
   let generation = [[]];
   for (let i = 0; i < WIDTH; i++) {
@@ -90,5 +92,21 @@ export const setPixel = (generation, i, j, value) => {
     newGeneration[i] = [];
   }
   newGeneration[i][j] = value;
+  return newGeneration;
+};
+
+export const setPrefab = (generation, i, j, prefabEnum) => {
+  let prefab = getPrefab(prefabEnum);
+  let newGeneration = cloneGeneration(generation);
+  for (let a = 0; a < prefab.length; a++) {
+    for (let b = 0; b < prefab[a].length; b++) {
+      let x = b + i;
+      let y = a + j;
+      if (!newGeneration[x]) {
+        newGeneration[x] = [];
+      }
+      newGeneration[x][y] = prefab[a][b];
+    }
+  }
   return newGeneration;
 };

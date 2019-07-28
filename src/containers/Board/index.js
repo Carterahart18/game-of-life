@@ -4,17 +4,27 @@ import PropTypes from 'prop-types';
 import Canvas from '../../components/canvas';
 import Column from '../../components/column';
 
-import { drawGeneration, drawPrefab, getCoordinates } from '../../util/canvasUtil';
+import {
+  drawGeneration,
+  getCoordinates
+} from '../../util/canvasUtil';
 
 const propTypes = {
   activePrefab: PropTypes.string.isRequired,
   currentGeneration: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
   drawingPrefab: PropTypes.bool.isRequired,
+  insertPrefab: PropTypes.func.isRequired,
   modifyBoard: PropTypes.func.isRequired
 };
 
 export default function Board(props) {
-  const { activePrefab, currentGeneration, drawingPrefab, modifyBoard } = props;
+  const {
+    activePrefab,
+    currentGeneration,
+    drawingPrefab,
+    insertPrefab,
+    modifyBoard
+  } = props;
   const [drawing, setDrawing] = useState(false);
 
   useEffect(() => {
@@ -40,7 +50,7 @@ export default function Board(props) {
     setDrawing(false);
     if (drawingPrefab) {
       const [i, j] = getCoordinates(event);
-      drawPrefab(i, j, activePrefab);
+      insertPrefab(i, j, activePrefab);
     }
   };
 
