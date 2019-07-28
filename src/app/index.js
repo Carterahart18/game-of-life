@@ -32,7 +32,6 @@ export default function App() {
 
   const modifyBoard = (i, j, value) => {
     setCurrentGeneration(setPixel(currentGeneration, i, j, value));
-    // insertPrefab(i, j, null);
   };
 
   const insertPrefab = (i, j, prefab) => {
@@ -42,7 +41,7 @@ export default function App() {
   const startGame = () => {
     const interval = setInterval(() => {
       stepBoard();
-    }, 50);
+    }, 35);
     setGameInterval(interval);
     setRunning(true);
   };

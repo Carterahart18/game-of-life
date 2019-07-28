@@ -40,6 +40,7 @@ export default function ControlPanel(props) {
       />
       <PrefabSelector
         activePrefab={props.activePrefab}
+        drawingPrefab={props.drawingPrefab}
         setActivePrefab={props.setActivePrefab}
       />
     </Column>

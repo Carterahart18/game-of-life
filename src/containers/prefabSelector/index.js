@@ -13,17 +13,23 @@ const propTypes = {
   setActivePrefab: PropTypes.func.isRequired
 };
 
-export default function PrefabSelector({ activePrefab, setActivePrefab }) {
+export default function PrefabSelector({
+  activePrefab,
+  drawingPrefab,
+  setActivePrefab
+}) {
   return (
     <Column className={'PrefabSelector-container'}>
       <Row>
         <Button
+          disabled={!drawingPrefab}
           transparent={activePrefab !== PREFABS.GLIDER}
           inline
           onClick={() => setActivePrefab(PREFABS.GLIDER)}
           text={'Glider'}
         />
         <Button
+          disabled={!drawingPrefab}
           transparent={activePrefab !== PREFABS.GLIDER_GUN}
           inline
           onClick={() => setActivePrefab(PREFABS.GLIDER_GUN)}
@@ -32,12 +38,14 @@ export default function PrefabSelector({ activePrefab, setActivePrefab }) {
       </Row>
       <Row>
         <Button
+          disabled={!drawingPrefab}
           transparent={activePrefab !== PREFABS.SHIP_1}
           inline
           onClick={() => setActivePrefab(PREFABS.SHIP_1)}
           text={'TODO'}
         />
         <Button
+          disabled={!drawingPrefab}
           transparent={activePrefab !== PREFABS.SHIP_2}
           inline
           onClick={() => setActivePrefab(PREFABS.SHIP_2)}
