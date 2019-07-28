@@ -34,14 +34,19 @@
       <header class="App-header">
         <h1 class="App-title">Convey's Game of Life</h1>
       </header>
+
+
+
       <div class="App-canvas">
-        <canvas id="canvas" width="500" height="500" scale="1"></canvas>
+        <canvas id="oldCanvas" class="Canvas" width="500" height="500" scale="1"></canvas>
 
       </div>
       <input id="toggle" type="button" value="Start" />
       <input id="random" type="button" value="Randomize" />
 
       <p>This app is meant to play Conway's Game of Life!</p>
+
+      <div id="root" />
     </div>
 
   </body>

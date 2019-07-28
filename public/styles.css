@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
+/*
 .App {
   text-align: center;
 }
@@ -13,17 +13,17 @@ body {
   height: 50px;
   padding: 20px;
   color: white;
-}
+} */
 
-.App-title {
+/* .App-title {
   font-size: 24px;
-}
+} */
 
-.App-intro {
+/* .App-intro {
   font-size: large;
-}
-
+} */
+/*
 #canvas {
   border: solid 1px #888;
   margin: 20px;
-}
+} */
