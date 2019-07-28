@@ -59,7 +59,7 @@ export default function App() {
 
   return (
     <div>
-      <Header text={"Convey's Game of Life"} />
+      <Header text={"Conways Game of Life"} />
       <Row>
         <ControlPanel
           activePrefab={activePrefab}
