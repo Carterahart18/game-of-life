@@ -2,11 +2,11 @@
 
 import { SCALE } from './constants';
 
-export const drawGrid = (grid) => {
+export const drawGeneration = generation => {
   const canvas = document.getElementById('canvas');
-  grid.forEach(function(col, i) {
+  generation.forEach(function(col, i) {
     col.forEach(function(bool, j) {
-      if (grid[i][j]) {
+      if (generation[i][j]) {
         drawPixel(canvas, i, j, SCALE);
       } else {
         clearPixel(canvas, i, j, SCALE);
@@ -30,19 +30,13 @@ export const isPixelSet = (canvas, x, y) => {
   }
 };
 
-// export const togglePixel = (canvas, x, y) => {
-//   const context = canvas.getContext('2d');
-//   var image = context.getImageData(x, y, 1, 1);
-//   if (image) {
-//     const xPos = Math.floor(x / SCALE);
-//     const yPos = Math.floor(y / SCALE);
+export const getCoordinates = event => {
+  const canvas = document.getElementById('canvas');
 
-//     if (image.data && image.data[3] != 0) {
-//       context.clearRect(xPos * SCALE, yPos * SCALE, SCALE, SCALE);
-//     } else {
-//       context.fillRect(xPos * SCALE, yPos * SCALE, SCALE, SCALE);
-//     }
-//     console.log(image);
-//   }
-// };
-// };
+  let x = event.pageX - canvas.offsetLeft;
+  let y = event.pageY - canvas.offsetTop;
+
+  const xPos = Math.floor(x / SCALE);
+  const yPos = Math.floor(y / SCALE);
+  return [xPos, yPos];
+};

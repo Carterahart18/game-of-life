@@ -7,6 +7,7 @@ import './styles.css';
 
 const propTypes = {
   running: PropTypes.bool.isRequired,
+  onClear: PropTypes.func.isRequired,
   onStep: PropTypes.func.isRequired,
   onRandomize: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired
@@ -25,6 +26,7 @@ export default function ControlPanel(props) {
         onClick={props.onRandomize}
         text={'Randomize'}
       />
+      <Button onClick={props.onClear} text={'Clear'} />
     </div>
   );
 }

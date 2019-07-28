@@ -5,7 +5,7 @@ import './styles.css';
 
 const propTypes = {
   disabled: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
