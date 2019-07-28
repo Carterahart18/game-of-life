@@ -3,7 +3,8 @@ import {
   getEmptyGeneration,
   getRandomGeneration,
   getNextGeneration,
-  setPixel
+  setPixel,
+  setPrefab
 } from '../util/generationUtil';
 import { PREFABS } from '../util/prefabUtil';
 
@@ -11,6 +12,8 @@ import Board from '../containers/Board';
 import ControlPanel from '../containers/controlPanel';
 import Header from '../components/header';
 import Row from '../components/row';
+
+import './styles.css';
 
 export default function App() {
   const [currentGeneration, setCurrentGeneration] = useState(
@@ -29,6 +32,11 @@ export default function App() {
 
   const modifyBoard = (i, j, value) => {
     setCurrentGeneration(setPixel(currentGeneration, i, j, value));
+    // insertPrefab(i, j, null);
+  };
+
+  const insertPrefab = (i, j, prefab) => {
+    setCurrentGeneration(setPrefab(currentGeneration, i, j, prefab));
   };
 
   const startGame = () => {
@@ -58,9 +66,9 @@ export default function App() {
   };
 
   return (
-    <div>
-      <Header text={"Conways Game of Life"} />
-      <Row>
+    <div className={'App-container'}>
+      <Header text={'Conways Game of Life'} />
+      <div className={'App-main'}>
         <ControlPanel
           activePrefab={activePrefab}
           drawingPrefab={drawingPrefab}
@@ -76,9 +84,10 @@ export default function App() {
           activePrefab={activePrefab}
           currentGeneration={currentGeneration}
           drawingPrefab={drawingPrefab}
+          insertPrefab={insertPrefab}
           modifyBoard={modifyBoard}
         />
-      </Row>
+      </div>
     </div>
   );
 }

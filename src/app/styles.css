@@ -1,0 +1,28 @@
+:root {
+  --button-primary: #4a90e2;
+  --button-hover: #4184d8;
+  --button-active: #286acd;
+  --button-disabled: #a1bcde;
+  --button-outline: rgba(0, 132, 255, 0.5);
+  --canvas-border: #ddd;
+  --control-background: #eee;
+}
+
+.App-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-main {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .App-main {
+    flex-direction: column;
+    width: auto;
+  }
+}
