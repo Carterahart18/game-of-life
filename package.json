@@ -1,8 +1,8 @@
 {
-  "name": "gameoflife",
+  "name": "game-of-life",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://carterahart18.github.io/gameoflife/",
+  "homepage": "https://carterahart18.github.io/game-of-life/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
